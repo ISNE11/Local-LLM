@@ -14,10 +14,12 @@ Ollama makes it super easy to run models locally.
 
 ## 📁 Project Structure & File Contents
 
+
 ```
 README.md                # This file. Project overview and instructions.
-run_llm.py               # Main script to interact with the local LLM.
-textbook_llm.py          # Script for querying the textbook using the LLM.
+main.py                  # Main GUI app: chat, textbook toggle, question type, stop button.
+run_llm.py               # (Legacy) Script to interact with the local LLM via CLI.
+textbook_llm.py          # (Legacy) Script for querying the textbook using the LLM via CLI.
 textbook.txt             # Text version of the textbook used for context.
 db/                      # Database folder for storing embeddings and data.
    chroma.sqlite3         # SQLite database for vector storage (Chroma).
@@ -27,9 +29,14 @@ textbook_create/         # Utilities for creating the textbook text file.
    textbook-pdf/          # Folder to store original textbook PDFs.
 ```
 
-- **run_llm.py**: Main entry point for running LLM queries.
-- **textbook_llm.py**: Specialized for textbook-based Q&A.
-- **textbook.txt**: The context source for textbook_llm.py.
+- **main.py**: Main entry point. Launches a GUI chat app with:
+  - Toggle for using textbook context (on by default)
+  - Toggle for open-ended or multiple choice questions
+  - Button to stop the AI response at any time
+  - Real-time streaming, markdown rendering, and scrollable chat
+- **run_llm.py**: (Legacy) CLI for running LLM queries.
+- **textbook_llm.py**: (Legacy) CLI for textbook-based Q&A.
+- **textbook.txt**: The context source for textbook-based Q&A.
 - **db/**: Stores vector database files for fast retrieval.
 - **textbook_create/**: Tools for converting and managing textbook files.
 
@@ -74,16 +81,24 @@ You’ll now have a local chatbot that works entirely offline.
    - Make sure Ollama is running and the desired model is available.
    - Make sure the python files are set to use the correct model name.
 
-5. **Run the main script**
+
+5. **Run the main GUI app**
+   ```sh
+   python main.py
+   ```
+
+   - Use the toggles at the top to enable/disable textbook context and switch between open-ended or multiple choice questions.
+   - Click the **Stop AI** button at any time to abort a long response.
+   - All chat is streamed in real time with markdown rendering and scrollable history.
+
+6. **(Optional) Run legacy CLI scripts**
    ```sh
    python run_llm.py
-   ```
-   or
-   ```sh
+   # or
    python textbook_llm.py
    ```
 
-6. **Interact with your local LLM!**
+7. **Interact with your local LLM!**
 
 ---
 
